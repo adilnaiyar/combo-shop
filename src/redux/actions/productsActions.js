@@ -1,9 +1,24 @@
 import { ActionTypes } from "../constants/action-types";
+import comboShopApi from "../../api/comboShopApi";
+
+export const fetchProducts = () => {
+  return async (dispatch) => {
+    const response = await comboShopApi.get("/products");
+    dispatch(setProducts(response.data));
+  };
+};
 
 export const setProducts = (products) => {
   return {
     type: ActionTypes.SET_PRODUCTS,
     payload: products,
+  };
+};
+
+export const fetchProductDetail = (id) => {
+  return async (dispatch) => {
+    const response = await comboShopApi.get(`/products/${id}`);
+    dispatch(selectedProduct(response.data));
   };
 };
 
